@@ -13,6 +13,7 @@ import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 
 import algorithms.mazeGenerators.Cell;
@@ -67,7 +68,9 @@ public class MyBoard extends AbstractBoard{
 						redraw();
 						if (character.getXCharater()==matrix.getRows()-1 && character.getYCharater()==matrix.getCols()-1)
 						{
-							System.out.println("THE END");
+							MessageBox ms=new MessageBox(getShell());
+							ms.setMessage("You succeeded and found the pokemon");
+							ms.open();
 						}
 					 
 					 }
@@ -86,7 +89,9 @@ public class MyBoard extends AbstractBoard{
 						 redraw();
 						 if (character.getXCharater()==matrix.getRows()-1 && character.getYCharater()==matrix.getCols()-1)
 							{
-								System.out.println("THE END");
+							 	MessageBox ms=new MessageBox(getShell());
+								ms.setMessage("You succeeded and found the pokemon");
+								ms.open();
 							}
 					 }
 				 }
@@ -103,7 +108,9 @@ public class MyBoard extends AbstractBoard{
 						 redraw();
 						 if (character.getXCharater()==matrix.getRows()-1 && character.getYCharater()==matrix.getCols()-1)
 							{
-								System.out.println("THE END");
+							 	MessageBox ms=new MessageBox(getShell());
+								ms.setMessage("You succeeded and found the pokemon");
+								ms.open();
 							}
 					 }
 				 }
@@ -116,7 +123,9 @@ public class MyBoard extends AbstractBoard{
 						 redraw();
 						 if (character.getXCharater()==matrix.getRows()-1 && character.getYCharater()==matrix.getCols()-1)
 							{
-								System.out.println("THE END");
+							 	MessageBox ms=new MessageBox(getShell());
+								ms.setMessage("You succeeded and found the pokemon");
+								ms.open();
 							}
 					 }
 				 }
@@ -188,55 +197,6 @@ public class MyBoard extends AbstractBoard{
 		
 	}
 	
-	
-	
-	
-	
-	
-	
-//	Image wallHorizontal;
-//	Canvas[][] boardGame;
-//	Image wallVertical;
-//	Image way;
-//	private Display display;
-//	private Shell shell;
-//
-//	public MyBoard(Composite parent, int style,Display display,Shell shell) {
-//		super(parent, style);
-//		
-//		this.display=display;
-//		this.shell=shell;
-//		way=new Image(display,"Grass.jpg");
-//		
-//		setBackground(new Color(null, 255, 255, 255));
-//		addPaintListener(new PaintListener() {
-//			@Override
-//			public void paintControl(PaintEvent e) {
-//				int x=getSize().x;
-//				int y=getSize().y;
-//				e.gc.drawImage(way,0,0,way.getImageData().width,way.getImageData().height,0,0,x,y);
-//				
-//			}
-//		});
-//	}
-//
-//		
 
-//		
-//	}
-//	public void ChangeWallHorizonal(Image wallHorizontal)
-//	{
-//		this.wallHorizontal=wallHorizontal;
-//	}
-//	
-//	public void ChangeWallVertical(Image wallVertical)
-//	{
-//		this.wallVertical=wallVertical;
-//	}
-//	
-//	public void ChangeWay(Image way)
-//	{
-//		this.way=way;
-//	}
 //	
 }

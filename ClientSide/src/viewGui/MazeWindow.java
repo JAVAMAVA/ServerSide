@@ -210,7 +210,8 @@ public class MazeWindow extends BasicWindow implements View{
 
 	protected void generatemaze() {
 		
-		gameBoard.matrix.print();
+		setChanged();
+		notifyObservers("start");
 		lastcommand=comm.get("generate maze");
 		setChanged();
 		notifyObservers("amit");

@@ -134,6 +134,8 @@ public abstract class AbstractBoard extends Composite implements Board{
 			{
 				for(int j=0;j<matrix.getCols();j++)
 				{
+					if(i!=matrix.getRows()-1 && j!=matrix.getCols())
+					{
 					if(matrix.getCell(i, j).getUp()==true)
 						temp+="U";
 					if(matrix.getCell(i, j).getRight()==true)
@@ -148,6 +150,11 @@ public abstract class AbstractBoard extends Composite implements Board{
 					boardGame[i][j].setLayoutData(new GridData(SWT.FILL,SWT.FILL,true,true));
 					boardGame[i][j].drawCell(e, (getSize().x/matrix.getCols())*j , (getSize().y/matrix.getRows())*i , (getSize().x/matrix.getCols()), (getSize().y/matrix.getRows()));
 					temp="";
+					}
+					boardGame[i][j]=new MazeCanvas(this, SWT.FILL);
+					boardGame[i][j].setcImage(new Image(this.getDisplay(), "Images//FloorImageSolution//floor"+temp+".jpg"));
+					boardGame[i][j].setLayoutData(new GridData(SWT.FILL,SWT.FILL,true,true));
+					boardGame[i][j].drawCell(e, (getSize().x/matrix.getCols())*j , (getSize().y/matrix.getRows())*i , (getSize().x/matrix.getCols()), (getSize().y/matrix.getRows()));
 				
 				}
 			}

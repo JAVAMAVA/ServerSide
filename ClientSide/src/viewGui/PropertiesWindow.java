@@ -49,9 +49,9 @@ public class PropertiesWindow extends BasicWindow implements View{
 		prop.setText("Enter your maze properties:");
 		prop.setForeground(basicf);
 		prop.setBackground(back);
-		prop.setLayoutData(new GridData(SWT.CENTER,SWT.TOP | SWT.CENTER, true,false,2,1));
+		prop.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true,false,2,1));
 		
-		Label wid=new Label(shell, SWT.CENTER);
+		Label wid=new Label(shell, SWT.CENTER |SWT.BORDER);
 		wid.setFont(font);
 		wid.setText("Enter the maze width:");
 		wid.setForeground(basicf);
@@ -66,11 +66,11 @@ public class PropertiesWindow extends BasicWindow implements View{
 		width.setLayoutData(new GridData(SWT.CENTER,SWT.TOP | SWT.CENTER, true,false,2,1));
 		
 		Label heig=new Label(shell, SWT.CENTER | SWT.BORDER);
-		wid.setFont(font);
-		wid.setText("Enter the maze height:");
-		wid.setForeground(basicf);
-		wid.setBackground(back);
-		wid.setLayoutData(new GridData(SWT.CENTER,SWT.TOP | SWT.CENTER, true,false,2,1));
+		heig.setFont(font);
+		heig.setText("Enter the maze height:");
+		heig.setForeground(basicf);
+		heig.setBackground(back);
+		heig.setLayoutData(new GridData(SWT.CENTER,SWT.TOP | SWT.CENTER, true,false,2,1));
 		
 		
 		Text height  = new Text(shell, SWT.CENTER | SWT.BORDER);
