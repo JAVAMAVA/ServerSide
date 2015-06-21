@@ -12,7 +12,11 @@ import java.io.Serializable;
 import java.net.Socket;
 import java.util.Observable;
 
+import algorithms.mazeGenerators.DFSMazeGenerator;
 import algorithms.mazeGenerators.Maze;
+import algorithms.mazeGenerators.MazeGenerator;
+import algorithms.mazeGenerators.RandomMazeGenerator;
+import algorithms.search.CommonSearcher;
 import algorithms.search.Solution;
 /**
  * {@link MyClientHandler} handles the traffic from the client
@@ -23,8 +27,11 @@ import algorithms.search.Solution;
 public class MyClientHandler extends Observable implements ClientHandler{
 	
 	Model m;
+	CommonSearcher cms;
+	MazeGenerator mg;
+	String mgen;
+	String soltype;
 	
-
 	public MyClientHandler(Model m) { //from the run
 		super();
 		this.m = m;		
@@ -69,6 +76,29 @@ public class MyClientHandler extends Observable implements ClientHandler{
 			else if((line[0] + " " + line[1]).equals("get maze")){//getting a maze to the client
 				
 				Maze maze;
+				sendMaze senm ;
+				
+				switch (mgen) {
+				case "Random Generator":
+					RandomMazeGenerator rnd = new RandomMazeGenerator();
+					maze = rnd.generateMaze(Integer.parseInt(line[2]), Integer.parseInt(line[3]));
+					
+					senm = new sendMaze(maze);
+					objToClient.writeObject(senm);
+					objToClient.flush();
+					break;
+				case "DFS":
+					DFSMazeGenerator df = new DFSMazeGenerator();
+					maze = df.generateMaze(Integer.parseInt(line[2]), Integer.parseInt(line[3]));
+					
+					senm = new sendMaze(maze);
+					objToClient.writeObject(senm);
+					objToClient.flush();
+					break;
+					
+				default:
+					break;
+				}
 				
 //				if(m.checkMaze(line[3])){
 //					maze = m.getMaze();
@@ -76,10 +106,6 @@ public class MyClientHandler extends Observable implements ClientHandler{
 //					ToClient.println(sendm);
 //				}
 				
-				Maze m = new Maze(10, 10);
-				sendMaze senm = new sendMaze(m);
-				objToClient.writeObject(senm);
-				objToClient.flush();
 				
 				//ToClient.println("Done");
 				ToClient.flush();
@@ -91,6 +117,25 @@ public class MyClientHandler extends Observable implements ClientHandler{
 				return;
 			}
 			else if((line[0] + " " + line[1]).equals("get solution")){//getting solution to client
+				
+				Solution sol;
+				sendSolution sendSolution ;
+				
+				switch (soltype) {
+				case "Astar":
+					sol = new Solution();
+					
+					
+					
+					break;
+				case "BFS" :
+					
+					break;
+
+				default:
+					break;
+				}
+				
 				
 				Solution sol = null;
 				
@@ -141,8 +186,29 @@ public class MyClientHandler extends Observable implements ClientHandler{
 class sendMaze implements Serializable{
 	Maze maze;
 	public sendMaze(Maze m) {
-		this.maze = m;	
-		
+		this.maze = m;		
+	}
+	
+}
+/**
+ * {@link sendMaze} is a {@link Serializable} class to send a DFS generated maze via the socket
+ * {@link DFSMazeGenerator}
+ */
+class sendDFSMaze implements Serializable{
+	Maze maze;
+	public sendDFSMaze(Maze m) {
+		this.maze = m;		
+	}
+	
+}
+/**
+ * {@link sendMaze} is a {@link Serializable} class to send a Random generated maze via the socket
+ * {@link RandomMazeGenerator}
+ */
+class sendRndMaze implements Serializable{
+	Maze maze;
+	public sendRndMaze(Maze m) {
+		this.maze = m;		
 	}
 	
 }

@@ -88,7 +88,8 @@ public class ClientModel extends Observable implements Model {
 		Solution sol = null;
 		sendSolution getSol = new sendSolution(sol);
 		try {
-			myServer = new Socket("127.0.0.1", 6060);
+			//myServer = new Socket(HOST, PORT);
+			myServer = new Socket("127.0.0.1", 5070);
 			BufferedReader inServer = new BufferedReader(new InputStreamReader(myServer.getInputStream()));
 			PrintWriter outToServer = new PrintWriter(new OutputStreamWriter(myServer.getOutputStream()));
 			ObjectInputStream getSolIn = new ObjectInputStream(myServer.getInputStream());
@@ -145,9 +146,9 @@ public class ClientModel extends Observable implements Model {
 			PrintWriter outToServer = new PrintWriter(new OutputStreamWriter(myServer.getOutputStream()));
 			ObjectInputStream getMazeIn = new ObjectInputStream(myServer.getInputStream());
 			
-			BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
+			//BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
 			
-			String line;
+			//String line;
 			//line = inFromUser.readLine();
 			
 			outToServer.println("get maze");
