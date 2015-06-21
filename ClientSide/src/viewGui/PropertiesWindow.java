@@ -36,7 +36,7 @@ public class PropertiesWindow extends BasicWindow implements View{
 	@Override
 	void initWidgets() {
 		shell.setBackground(new Color(this.display.getCurrent(), 255,255, 255));
-		shell.setLayout(new GridLayout(2,false));
+		shell.setLayout(new GridLayout(3,false));
 		shell.getDisplay().loadFont("Fonts//YanoneKaffeesatz-Bold.ttf");
 		
 		
@@ -66,11 +66,11 @@ public class PropertiesWindow extends BasicWindow implements View{
 		width.setLayoutData(new GridData(SWT.CENTER,SWT.TOP | SWT.CENTER, true,false,2,1));
 		
 		Label heig=new Label(shell, SWT.CENTER | SWT.BORDER);
-		wid.setFont(font);
-		wid.setText("Enter the maze height:");
-		wid.setForeground(basicf);
-		wid.setBackground(back);
-		wid.setLayoutData(new GridData(SWT.CENTER,SWT.TOP | SWT.CENTER, true,false,2,1));
+		heig.setFont(font);
+		heig.setText("Enter the maze height:");
+		heig.setForeground(basicf);
+		heig.setBackground(back);
+		heig.setLayoutData(new GridData(SWT.CENTER,SWT.TOP | SWT.CENTER, true,false,2,1));
 		
 		
 		Text height  = new Text(shell, SWT.CENTER | SWT.BORDER);
@@ -103,8 +103,9 @@ public class PropertiesWindow extends BasicWindow implements View{
 			public void widgetSelected(SelectionEvent arg0) {
 				if(width.getText()!= null && width.getText()!= "0" && height.getText() != null && height.getText() != "0"){
 					
-					mW=new MazeWindow("My Maze Window",500, 500);
+					mW=new MazeWindow("My Maze Window",500, 500,display);
 					mW.start();
+					mW.run();
 				}
 				else{
 					MessageBox errorMsg = new MessageBox(shell);

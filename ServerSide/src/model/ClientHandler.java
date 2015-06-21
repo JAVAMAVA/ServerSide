@@ -6,6 +6,5 @@ import java.net.Socket;
 
 public interface ClientHandler {
 	void handle(Socket sock, InputStream inFromClient,OutputStream outToClient);
-
 	
 }

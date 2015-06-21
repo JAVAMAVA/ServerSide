@@ -61,7 +61,7 @@ public class MyClientHandler extends Observable implements ClientHandler{
 			
 			System.out.println(line[0] + line[1]);
 			
-			if((line[0] + " " + line[1]).equals("generate maze"))//generating maze
+			if((line[0] + " " + line[1]).equals("get maze"))//generating maze
 			{
 				//m.generateMaze(line[2], Integer.parseInt(line[3]) , Integer.parseInt(line[4]));
 				
@@ -73,7 +73,7 @@ public class MyClientHandler extends Observable implements ClientHandler{
 				sock.close();
 				return;
 			}
-			else if((line[0] + " " + line[1]).equals("get maze")){//getting a maze to the client
+			else if((line[0] + " " + line[1]).equals("generate maze")){//getting a maze to the client
 				
 				Maze maze;
 				sendMaze senm ;

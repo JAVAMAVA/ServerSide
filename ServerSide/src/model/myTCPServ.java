@@ -57,9 +57,13 @@ public class myTCPServ implements Runnable {
 	public void start() throws Exception{
 		System.out.println("ServerStarted");
 		ServerSocket Server;
+		System.out.println("Enter for BFS - 1 \n for Astar - 2 \n ");
+		
+		
+		System.out.println("Enter for DFS - 1 \n for Random Generator - 2 \n ");
 		
 		Server = new ServerSocket(port);
-		Server.setSoTimeout(20000);
+		Server.setSoTimeout(100000);
 		
 		threadpool=Executors.newFixedThreadPool(10);
 		

@@ -21,6 +21,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Listener;
@@ -42,8 +43,8 @@ public class MazeWindow extends BasicWindow implements View{
 	public MazeDispleyer md;
 	
 	
-	public MazeWindow(String title,int width , int height) {
-		super(title, width, height);
+	public MazeWindow(String title,int width , int height,Display dis) {
+		super(title, width, height,dis) ;
 		
 		
 		
@@ -210,7 +211,8 @@ public class MazeWindow extends BasicWindow implements View{
 
 	protected void generatemaze() {
 		
-		gameBoard.matrix.print();
+		setChanged();
+		notifyObservers("start");
 		lastcommand=comm.get("generate maze");
 		setChanged();
 		notifyObservers("amit");
@@ -290,6 +292,12 @@ public class MazeWindow extends BasicWindow implements View{
 	public HashMap<String, Command> getHM() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	void closeWindow() {
+		// TODO Auto-generated method stub
+		
 	}
 
 

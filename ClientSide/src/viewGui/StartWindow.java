@@ -14,6 +14,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
@@ -24,9 +25,11 @@ import view.View;
 
 public class StartWindow extends BasicWindow implements View  {
 
-	public StartWindow(String title, int width, int height) {
-		super(title, width, height);
-		// TODO Auto-generated constructor stub
+	PropertiesWindow prop;
+	
+	public StartWindow(String title, int width, int height,Display dis) {
+		super(title, width, height ,dis);
+
 	}
 
 	@Override
@@ -50,37 +53,37 @@ public class StartWindow extends BasicWindow implements View  {
 		creators.setBackground(new Color(display.getCurrent(), 255,255, 255));
 		creators.setLayoutData(new GridData(SWT.CENTER,SWT.TOP | SWT.CENTER, true,false,2,1));
 		
-		Label innerTitle = new Label(shell,SWT.NONE);
-		innerTitle.setText("Please enter the number of rows and columns in your Maze:\n\n");
-		innerTitle.setFont(new Font(display, "Arial", 10, SWT.NORMAL));
-		innerTitle.setForeground(new Color(display.getCurrent(), 0, 0, 160));
-		innerTitle.setBackground(new Color(display.getCurrent(), 255,255, 255));
-		innerTitle.setLayoutData(new GridData(SWT.CENTER ,SWT.TOP, false,false,2,1));
-		
-		Label LROW=new Label(shell, SWT.NONE);
-		LROW.setText("Rows:");
-		LROW.setFont(new Font(display, "Arial", 10, SWT.NORMAL));
-		LROW.setForeground(new Color(display.getCurrent(), 0, 0, 160));
-		LROW.setBackground(new Color(display.getCurrent(), 255,255, 255));
-		LROW.setLayoutData(new GridData(SWT.CENTER ,SWT.TOP, false,false,1,1));
-		
-		Text TROW=new Text(shell, SWT.NONE);
-		TROW.setLayoutData(new GridData(SWT.CENTER | SWT.FILL ,SWT.TOP, false,false,1,1));
-		TROW.setBackground(new Color(display.getCurrent(), 229,228, 226));
-		
-		Label LCOLUMN=new Label(shell, SWT.NONE);
-		LCOLUMN.setText("Columns:");
-		LCOLUMN.setFont(new Font(display, "Arial", 10, SWT.NORMAL));
-		LCOLUMN.setForeground(new Color(display.getCurrent(), 0, 0, 160));
-		LCOLUMN.setBackground(new Color(display.getCurrent(), 255,255, 255));
-		LCOLUMN.setLayoutData(new GridData(SWT.CENTER | SWT.LEFT ,SWT.TOP, false,false,1,1));
-		
-		Text TCOLUMN=new Text(shell, SWT.NONE);
-		TCOLUMN.setLayoutData(new GridData(SWT.CENTER | SWT.FILL ,SWT.TOP, false,false,1,1));
-		TCOLUMN.setBackground(new Color(display.getCurrent(), 229,228, 226));
+//		Label innerTitle = new Label(shell,SWT.NONE);
+//		innerTitle.setText("Please enter the number of rows and columns in your Maze:\n\n");
+//		innerTitle.setFont(new Font(display, "Arial", 10, SWT.NORMAL));
+//		innerTitle.setForeground(new Color(display.getCurrent(), 0, 0, 160));
+//		innerTitle.setBackground(new Color(display.getCurrent(), 255,255, 255));
+//		innerTitle.setLayoutData(new GridData(SWT.CENTER ,SWT.TOP, false,false,2,1));
+//		
+//		Label LROW=new Label(shell, SWT.NONE);
+//		LROW.setText("Rows:");
+//		LROW.setFont(new Font(display, "Arial", 10, SWT.NORMAL));
+//		LROW.setForeground(new Color(display.getCurrent(), 0, 0, 160));
+//		LROW.setBackground(new Color(display.getCurrent(), 255,255, 255));
+//		LROW.setLayoutData(new GridData(SWT.CENTER ,SWT.TOP, false,false,1,1));
+//		
+//		Text TROW=new Text(shell, SWT.NONE);
+//		TROW.setLayoutData(new GridData(SWT.CENTER | SWT.FILL ,SWT.TOP, false,false,1,1));
+//		TROW.setBackground(new Color(display.getCurrent(), 229,228, 226));
+//		
+//		Label LCOLUMN=new Label(shell, SWT.NONE);
+//		LCOLUMN.setText("Columns:");
+//		LCOLUMN.setFont(new Font(display, "Arial", 10, SWT.NORMAL));
+//		LCOLUMN.setForeground(new Color(display.getCurrent(), 0, 0, 160));
+//		LCOLUMN.setBackground(new Color(display.getCurrent(), 255,255, 255));
+//		LCOLUMN.setLayoutData(new GridData(SWT.CENTER | SWT.LEFT ,SWT.TOP, false,false,1,1));
+//		
+//		Text TCOLUMN=new Text(shell, SWT.NONE);
+//		TCOLUMN.setLayoutData(new GridData(SWT.CENTER | SWT.FILL ,SWT.TOP, false,false,1,1));
+//		TCOLUMN.setBackground(new Color(display.getCurrent(), 229,228, 226));
 		
 		Button okbutton =new Button(shell, SWT.None);
-		okbutton.setText("OK");
+		okbutton.setText("Start Playing!!");
 		okbutton.setFont(new Font(display, "Arial", 12, SWT.NORMAL));
 		//okbutton.setImage(new Image(this.display,"Images//FloorImages//floorU.jpg"));
 		okbutton.setLayoutData(new GridData(SWT.RIGHT ,SWT.BOTTOM, false,true,2,1));
@@ -88,13 +91,16 @@ public class StartWindow extends BasicWindow implements View  {
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				if (TROW.getText()!="" && TCOLUMN.getText()!="")
-				{
-					//MazeWindow mW=new MazeWindow("My Maze Window",500, 500);
-					//mW.start();
-					//mW.myMaze=new Maze(Integer.parseInt(TROW.getText()),Integer.parseInt(TCOLUMN.getText()));
-					//shell.dispose();	
-				}
+				
+				prop = new PropertiesWindow("Proparties", 500, 500, display);
+				prop.start();
+				prop.run();
+				
+				//MazeWindow mW=new MazeWindow("My Maze Window",500, 500);
+				//mW.start();
+				//mW.myMaze=new Maze(Integer.parseInt(TROW.getText()),Integer.parseInt(TCOLUMN.getText()));
+				//shell.dispose();	
+				
 			
 			
 			}
@@ -160,6 +166,18 @@ public class StartWindow extends BasicWindow implements View  {
 
 	@Override
 	public void addobserver(Observer observer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public HashMap<String, Command> getHM() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	void closeWindow() {
 		// TODO Auto-generated method stub
 		
 	}
