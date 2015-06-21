@@ -110,45 +110,7 @@ public class MyMazeDisplayer extends AbstractMazeDispleyer  {
 
 
 
-	@Override
-	public void displaySol(PaintEvent maze) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-
-
-
-
-
-
-	@Override
-	public void drawSol(GC gc, Solution sol) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-
-	@Override
-	public void undrawSol(GC gc, Solution sol) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-
-	@Override
-	public Object getTile(int i, int j) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
+	
 
 
 	@Override

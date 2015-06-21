@@ -25,6 +25,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Text;
 
 import presenter.Presenter;
 import presenter.Presenter.Command;
@@ -41,11 +42,13 @@ public class MazeWindow extends BasicWindow implements View{
 	private HashMap<String, Command> comm;
 	public Maze myMaze;
 	public MazeDispleyer md;
+	public String name;
 	
 	
-	public MazeWindow(String title,int width , int height,Display dis) {
+	public MazeWindow(String title,int width , int height,Display dis, int i, int j, String name) {
 		super(title, width, height,dis) ;
-		
+		myMaze=new Maze(i, j);
+		this.name=name;
 		
 		
 	}
@@ -59,8 +62,8 @@ public class MazeWindow extends BasicWindow implements View{
 		
 		shell.setLayout(new GridLayout(2, false)); //just started, needs changing
 		
-		Maze m=new Maze(20,20);
-		gameBoard=new MyBoard(shell,SWT.None, display, shell, m);
+		
+		gameBoard=new MyBoard(shell,SWT.None, display, shell, myMaze);
 		gameBoard.layout();
 		
 		gameBoard.addListener(SWT.RESIZE, new Listener() {
@@ -75,7 +78,7 @@ public class MazeWindow extends BasicWindow implements View{
 		//gameBoard.redraw();
 		//md=new MyMazeDisplayer(gameBoard, m);
 		
-		GridLayout boardLayout = new GridLayout(m.getCols(), true);
+		GridLayout boardLayout = new GridLayout(myMaze.getCols(), true);
 		boardLayout.horizontalSpacing = 0;
 		boardLayout.verticalSpacing = 0;
 		gameBoard.setLayout(boardLayout);
@@ -155,13 +158,13 @@ public class MazeWindow extends BasicWindow implements View{
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				lastcommand=comm.get("solve maze");
+				lastcommand=comm.get("solve maze ");
 				setChanged();
-				notifyObservers("amit");
+				notifyObservers(name);
 				gameBoard.forceFocus();
-				lastcommand=comm.get("display solution");
+				lastcommand=comm.get("display solution ");
 				setChanged();
-				notifyObservers("amit");
+				notifyObservers(name);
 				
 			}
 			
@@ -217,7 +220,7 @@ public class MazeWindow extends BasicWindow implements View{
 		notifyObservers("start");
 		lastcommand=comm.get("generate maze");
 		setChanged();
-		notifyObservers("amit");
+		notifyObservers(name+" "+myMaze.getRows()+" "+myMaze.getCols());
 		gameBoard.matrix.print();
 		
 	}

@@ -1,5 +1,7 @@
 package viewGui;
 
+import model.ClientModel;
+
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
@@ -17,6 +19,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Text;
 
+import presenter.Presenter;
 import presenter.Presenter.Command;
 import view.View;
 import algorithms.mazeGenerators.Maze;
@@ -101,11 +104,18 @@ public class PropertiesWindow extends BasicWindow implements View{
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				if(width.getText()!= null && width.getText()!= "0" && height.getText() != null && height.getText() != "0"){
+				System.out.println(width.getText());
+				System.out.println(height.getText());
+				if(width.getText()!= "" && width.getText()!= "0" && height.getText() != "" && height.getText() != "0"){
 					
-					mW=new MazeWindow("My Maze Window",500, 500,display);
+					mW=new MazeWindow("My Maze Window",500, 500,display,Integer.parseInt(width.getText()),Integer.parseInt(height.getText()),mazeName.getText());
+					ClientModel c=new ClientModel();
+					Presenter p=new Presenter(mW, c);
+					mW.addObserver(p);
+					c.addObserver(p);
 					mW.start();
 					mW.run();
+					closeWindow();
 				}
 				else{
 					MessageBox errorMsg = new MessageBox(shell);
