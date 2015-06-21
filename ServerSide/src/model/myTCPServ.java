@@ -64,15 +64,13 @@ public class myTCPServ implements Runnable {
 		threadpool=Executors.newFixedThreadPool(10);
 		
 		while(!stopped){
-			System.out.println("REQUEST ACCEPT");
 			Socket someClient = Server.accept();
 			System.out.println("ACCEPT");
 			System.out.println("Connected");
 			InputStream in = someClient.getInputStream();
 		    OutputStream out = someClient.getOutputStream();
-			
-//			threadpool.execute(new Runnable() {
-			new Thread(new Runnable() {
+			threadpool.execute(new Runnable() {
+				
 				@Override
 				public void run() {
 					System.out.println("Run");
@@ -85,9 +83,26 @@ public class myTCPServ implements Runnable {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-
+					
 				}
-			}).start();
+			});
+
+//			new Thread(new Runnable() {
+//				@Override
+//				public void run() {
+//					System.out.println("Run");
+//					try {
+//						
+//						//myClientHandler.handle(someClient.getInputStream(), someClient.getOutputStream());
+//						myClientHandler.handle(someClient,in, out);
+//						//System.out.println(someClient.getInputStream().toString());
+//					} catch (Exception e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//
+//				}
+//			}).start();
 				
 		}
 		Server.close();

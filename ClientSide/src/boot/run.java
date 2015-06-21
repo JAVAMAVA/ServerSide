@@ -9,9 +9,9 @@ import model.Model;
 public class run {
 public static void main(String[] args) {
 		
-		Model myModel = new ClientModel("127.0.0.1",5070);
+		Model myModel = new ClientModel();
 		Maze m;
-		myModel.getMaze();
+		myModel.generateMaze("momo", 10, 20);
 		//m = myModel.getMaze();
 		
 	}

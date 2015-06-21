@@ -118,12 +118,12 @@ public class MyClientHandler extends Observable implements ClientHandler{
 			}
 			else if((line[0] + " " + line[1]).equals("get solution")){//getting solution to client
 				
-				Solution sol;
+				Solution sol = new Solution();
 				sendSolution sendSolution ;
 				
 				switch (soltype) {
 				case "Astar":
-					sol = new Solution();
+					
 					
 					
 					
@@ -137,7 +137,6 @@ public class MyClientHandler extends Observable implements ClientHandler{
 				}
 				
 				
-				Solution sol = null;
 				
 				if(m.checkSolution(line[2])){
 					sol = m.getSolution(line[3]);
@@ -186,29 +185,8 @@ public class MyClientHandler extends Observable implements ClientHandler{
 class sendMaze implements Serializable{
 	Maze maze;
 	public sendMaze(Maze m) {
-		this.maze = m;		
-	}
-	
-}
-/**
- * {@link sendMaze} is a {@link Serializable} class to send a DFS generated maze via the socket
- * {@link DFSMazeGenerator}
- */
-class sendDFSMaze implements Serializable{
-	Maze maze;
-	public sendDFSMaze(Maze m) {
-		this.maze = m;		
-	}
-	
-}
-/**
- * {@link sendMaze} is a {@link Serializable} class to send a Random generated maze via the socket
- * {@link RandomMazeGenerator}
- */
-class sendRndMaze implements Serializable{
-	Maze maze;
-	public sendRndMaze(Maze m) {
-		this.maze = m;		
+		this.maze = m;
+		
 	}
 	
 }

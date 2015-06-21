@@ -10,7 +10,10 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.HashMap;
 import java.util.Observable;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ThreadPoolExecutor;
 
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.Solution;
@@ -23,18 +26,24 @@ import algorithms.search.Solution;
  */
 public class ClientModel extends Observable implements Model {
 	
+//	ThreadPoolExecutor pool;
+//	HashMap<Maze,Solution> mazeSolutions;
+//	HashMap<String,Maze> mazeNames;
 	Maze currMaze;
 	Solution currSol;
 	String mazeAlg;
 	String solveAlg;
+	
 	String HOST;
 	int PORT;
 	/**
 	 * Default Constructor
 	 */
-	public ClientModel(String Host,int Port) {
-		this.HOST = Host;
-		this.PORT = Port;
+	public ClientModel() {
+//		ConcurrentHashMap<Maze,Solution> mazeSolutions = new ConcurrentHashMap<Maze,Solution>();
+//		ConcurrentHashMap<String,Maze> mazeNames = new ConcurrentHashMap<String, Maze>();
+//		this.HOST = Host;
+//		this.PORT = Port;
 	}
 	
 	/**
@@ -73,6 +82,8 @@ public class ClientModel extends Observable implements Model {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		setChanged();
+		notifyObservers("maze solved");
 	}
 	
 	/**
@@ -124,19 +135,76 @@ public class ClientModel extends Observable implements Model {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		setChanged();
+		notifyObservers("maze solved");
 		return null;
 	}
 
 	/**
-	 * getMaze gets a maze from the server
-	 * @param myServer is the server we connect to
-	 * @param m a maze
-	 * @param mazes a {@link Serializable} maze for getting a maze out of the {@link InputStream}
+	 * getMaze gets a maze to the client
 	 */
 
 	@Override
 	public Maze getMaze() {
-		System.out.println("Getting maze");
+
+		return currMaze;
+		
+		
+//		System.out.println("Getting maze");
+//		Socket myServer = null;
+//		Maze m = null;
+//		sendMaze mazes = new sendMaze(m);
+//		try {
+//			myServer = new Socket("127.0.0.1", 5070);
+//			BufferedReader inServer = new BufferedReader(new InputStreamReader(myServer.getInputStream()));
+//			PrintWriter outToServer = new PrintWriter(new OutputStreamWriter(myServer.getOutputStream()));
+//			ObjectInputStream getMazeIn = new ObjectInputStream(myServer.getInputStream());
+//			
+//			//BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
+//			
+//			//String line;
+//			//line = inFromUser.readLine();
+//			
+//			outToServer.println("get maze");
+//			outToServer.flush();
+//			
+//			try {
+//				mazes = (sendMaze)getMazeIn.readObject(); //getting the maze
+//			} catch (ClassNotFoundException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			mazes.maze.print();
+//			
+//			getMazeIn.close();
+//			myServer.close();
+//			inServer.close();
+//			outToServer.close();
+//			//inFromUser.close();
+//			
+//		} catch (UnknownHostException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		setChanged();
+//		notifyObservers(arg);
+//		return m;
+	}
+	
+	/**
+	 * generateMaze sends a request to the server to generate a maze
+	 * @param myServer is the server we connect to
+	 * @param m a maze
+	 * @param mazes a {@link Serializable} maze for getting a maze out of the {@link InputStream}
+	 * 
+	 */
+	
+	@Override
+	public void generateMaze(String name, int rows, int cols) {
+		System.out.println("Generating maze");
 		Socket myServer = null;
 		Maze m = null;
 		sendMaze mazes = new sendMaze(m);
@@ -145,9 +213,7 @@ public class ClientModel extends Observable implements Model {
 			BufferedReader inServer = new BufferedReader(new InputStreamReader(myServer.getInputStream()));
 			PrintWriter outToServer = new PrintWriter(new OutputStreamWriter(myServer.getOutputStream()));
 			ObjectInputStream getMazeIn = new ObjectInputStream(myServer.getInputStream());
-			
 			//BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
-			
 			//String line;
 			//line = inFromUser.readLine();
 			
@@ -166,7 +232,7 @@ public class ClientModel extends Observable implements Model {
 			myServer.close();
 			inServer.close();
 			outToServer.close();
-			inFromUser.close();
+			//inFromUser.close();
 			
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
@@ -175,54 +241,12 @@ public class ClientModel extends Observable implements Model {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return m;
-	}
-	
-	/**
-	 * generateMaze sends a request to the server to generate a maze
-	 * @param myServer the server we connect to
-	 * 
-	 */
-	
-	@Override
-	public void generateMaze(String name, int rows, int cols) {
-		System.out.println("Generating maze");
-		Socket myServer = null;
-		try {
-			myServer = new Socket("127.0.0.1", 5070);
-			BufferedReader inServer = new BufferedReader(new InputStreamReader(myServer.getInputStream()));
-			PrintWriter outToServer = new PrintWriter(new OutputStreamWriter(myServer.getOutputStream()));
-			
-			BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
-			
-			String line = null;;
-			//line = inFromUser.readLine();
-			
-			//outToServer.println(line+" "+name);
-			//outToServer.println("generate maze" + " " + name+" "+rows+" "+cols);
-			outToServer.println("generate maze mmm 10 10");
-			outToServer.flush();
-			
-			
-			String str = inServer.readLine();
-			if(str.equals("Done")) {
-				System.out.println("Done");
-			}
-			
-			myServer.close();
-			inServer.close();
-			outToServer.close();
-			inFromUser.close();
-			
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
+		setChanged();
+		notifyObservers("Maze generated");
+		this.currMaze = mazes.maze;
 	}
 
+	
 	@Override
 	public void getMazeInModel(String arg) {
 		// TODO Auto-generated method stub
