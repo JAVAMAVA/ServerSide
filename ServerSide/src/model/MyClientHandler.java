@@ -53,21 +53,22 @@ public class MyClientHandler extends Observable implements ClientHandler{
 	 */
 	@Override
 	public void handle(Socket sock, InputStream inFromClient, OutputStream outToClient) {
-		ObjectOutputStream objToClient = null; //To Send Serializble 
+//		ObjectOutputStream objToClient = null; //To Send Serializble 
 		BufferedReader FromClient = new BufferedReader(new InputStreamReader(inFromClient));
 		PrintWriter ToClient = new PrintWriter(new OutputStreamWriter(outToClient));
+		ObjectOutputStream objToClient = null; //To Send Serializble 
 		try {
 			objToClient = new ObjectOutputStream(sock.getOutputStream());
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		System.out.println("Handle");
+		System.out.println("----ClientHandle----");
 		
 		try {
 			String[] line = FromClient.readLine().split(" ");
 			
-			System.out.println(line[0] + line[1]);
+			System.out.println("Handling "+ line[0] + " " + line[1] );
 			
 			if((line[0] + " " + line[1]).equals("get maze")){ //generating maze
 				inFromClient.close();
@@ -91,7 +92,7 @@ public class MyClientHandler extends Observable implements ClientHandler{
 				switch (mazeGeneratorType) {
 				case "Random Generator":
 					m.setMazeAlg("Random");
-					System.out.println("creating randon maze");
+					System.out.println("Creating randon maze");
 					m.generateMaze(line[2], Integer.parseInt(line[3]), Integer.parseInt(line[4]));
 					senm = new MazeSerialzable(m.getMaze());
 					
@@ -103,6 +104,9 @@ public class MyClientHandler extends Observable implements ClientHandler{
 					senm.maze.print();
 					objToClient.writeObject(senm);
 					objToClient.flush();
+					
+					objToClient.close();
+					
 					break;
 				case "DFS":
 					m.setMazeAlg("DFS");
@@ -120,6 +124,8 @@ public class MyClientHandler extends Observable implements ClientHandler{
 					objToClient.writeObject(senm);
 					objToClient.flush();
 					
+					objToClient.close();
+					
 					break;
 					
 				default:
@@ -132,29 +138,36 @@ public class MyClientHandler extends Observable implements ClientHandler{
 				sock.close();
 				return;
 			}
-			else if((line[0] + " " + line[1]).equals("solve maze")){//getting solution to client
+			else if((line[0] + " " + line[1]).equals("get solution")){//getting solution to client
+				System.out.println("creating Solution");
 				SolutionSerialzable sol=null;
-				if(nameMazes.get(line[2])!=null)
+				if(m.checkSolution((line[2])) )
 				{
 				
-				NewMazeDomain md=new NewMazeDomain(nameMazes.get(line[2]).maze);
-				
-				
+			//	NewMazeDomain md=new NewMazeDomain(nameMazes.get(line[2]).maze);
+				if(SolutionType == null)
+					System.out.println("No type");
 				switch (SolutionType) {
 				case "Astar":
+					System.out.println("Running Astar-->Model");
 					m.setSolveAlg("Astar");
 					m.solveMaze(line[2]);
 					sol = new SolutionSerialzable(m.getSolution(line[2]));
 					
 					sol.getSol().printSolution();
+					if(sol.getSol() == null)
+						System.out.println("ERROR");
 					
 					objToClient.writeObject(sol);
 					objToClient.flush();
+					
+					objToClient.close();
 					
 //					AStar astar=new AStar();
 //					sol=new SolutionSerialzable(astar.search(md));
 					break;
 				case "BFS" :
+					System.out.println("Running BFS-->Model");
 					m.setSolveAlg("Bfs");
 					m.solveMaze(line[2]);
 					sol = new SolutionSerialzable(m.getSolution(line[2]));
@@ -164,6 +177,7 @@ public class MyClientHandler extends Observable implements ClientHandler{
 					objToClient.writeObject(sol);
 					objToClient.flush();
 					
+					objToClient.close();
 					
 //					BFS bfs=new BFS();
 //					sol=new SolutionSerialzable(bfs.search(md));
@@ -173,7 +187,7 @@ public class MyClientHandler extends Observable implements ClientHandler{
 					break;
 				}
 				
-				objToClient.close();
+				
 				inFromClient.close();
 				outToClient.close();
 				sock.close();
@@ -181,11 +195,12 @@ public class MyClientHandler extends Observable implements ClientHandler{
 				}
 				else 
 				{
+					System.out.println("ERROR");
 					ToClient.println("Maze was not found");
 					ToClient.flush();
 				}
 			}
-			else if((line[0] + " " + line[1]).equals("get Solution")){//get a clue to the client
+			else if((line[0] + " " + line[1]).equals(" Solution")){//get a clue to the client
 				if (nameSolutions.get(line[2])!=null) {
 					objToClient.writeObject(nameSolutions.get(line[2]));
 					objToClient.flush();

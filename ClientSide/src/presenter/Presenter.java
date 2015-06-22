@@ -134,7 +134,7 @@ public class Presenter implements Observer {
 
 		@Override
 		public void doCommand(String arg) {
-			m.solveMaze(arg);
+			m.getSolution(arg);
 			//v.displaySuccess("solution for "+arg+" is ready");
 			
 		}

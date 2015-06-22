@@ -136,7 +136,7 @@ public class MyModel extends java.util.Observable implements Model {
 	 */
 	@Override
 	public void solveMaze(String name) {
-		System.out.println("Solving Maze");
+		System.out.println("Solving Maze "+name);
 		Solution solution;
 		
 		switch(solveAlg){
@@ -196,6 +196,8 @@ public class MyModel extends java.util.Observable implements Model {
 	 */
 	@Override
 	public Solution getSolution(String name) {	
+		currMaze.print();
+		currSol.printSolution();
 		return currSol;
 	}
 
@@ -218,16 +220,19 @@ public class MyModel extends java.util.Observable implements Model {
 	
 	public boolean checkSolution(String name){
 		if(mazeNames.get(name) != null){
+			System.out.println(name+" inside checkSolution");
 			currMaze = mazeNames.get(name);
 			if(mazeSolutions.get(currMaze) != null){
 				setChanged();
 				notifyObservers("solution found");
+				System.out.println("Solution found\nPull Solution new");
 				return true;
 			}
 			else{
 				setChanged();
 				notifyObservers("solution not found");
-				return false;
+				System.out.println("Solution not found\nCreate new");
+				return true;
 			}
 		}
 		else{

@@ -104,11 +104,13 @@ public class ClientModel extends Observable implements Model {
 			
 
 			try {
-				getSol = (SolutionSerialzable)getSolIn.readObject(); //getting the maze
+				getSol = (SolutionSerialzable)getSolIn.readObject(); //getting the Solution
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+			getSol.sol.printSolution();
 			
 			myServer.close();
 			inServer.close();
@@ -206,6 +208,7 @@ public class ClientModel extends Observable implements Model {
 			
 			outToServer.println("generate maze "+name+" "+rows+ " "+cols);
 			outToServer.flush();
+			
 			if (inServer.readLine().equals("Maze doesn't exists")) {
 			try {
 				mazes = (MazeSerialzable)getMazeIn.readObject(); //getting the maze
