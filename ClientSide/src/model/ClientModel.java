@@ -210,14 +210,14 @@ public class ClientModel extends Observable implements Model {
 		MazeSerialzable mazes = new MazeSerialzable(m);
 		try {
 			myServer = new Socket("127.0.0.1", 5070);
-			BufferedReader inServer = new BufferedReader(new InputStreamReader(myServer.getInputStream()));
+			//BufferedReader inServer = new BufferedReader(new InputStreamReader(myServer.getInputStream()));
 			PrintWriter outToServer = new PrintWriter(new OutputStreamWriter(myServer.getOutputStream()));
 			ObjectInputStream getMazeIn = new ObjectInputStream(myServer.getInputStream());
 			//BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
 			//String line;
 			//line = inFromUser.readLine();
 			
-			outToServer.println("get maze");
+			outToServer.println("generate maze "+rows+ " "+cols);
 			outToServer.flush();
 			
 			try {
@@ -230,7 +230,7 @@ public class ClientModel extends Observable implements Model {
 			
 			getMazeIn.close();
 			myServer.close();
-			inServer.close();
+			//inServer.close();
 			outToServer.close();
 			//inFromUser.close();
 			
@@ -241,9 +241,10 @@ public class ClientModel extends Observable implements Model {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		this.currMaze = mazes.maze;
 		setChanged();
 		notifyObservers("Maze generated");
-		this.currMaze = mazes.maze;
+		
 	}
 
 	
