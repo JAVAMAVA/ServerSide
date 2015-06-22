@@ -10,7 +10,7 @@ import model.ClientModel;
 import model.Model;
 
 
-public class run {
+public class Run {
 public static void main(String[] args) {
 		
 	Display display = new Display();

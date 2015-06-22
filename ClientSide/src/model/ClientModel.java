@@ -97,7 +97,7 @@ public class ClientModel extends Observable implements Model {
 		Socket myServer = null;
 		
 		Solution sol = null;
-		sendSolution getSol = new sendSolution(sol);
+		SolutionSerialzable getSol = new SolutionSerialzable(sol);
 		try {
 			//myServer = new Socket(HOST, PORT);
 			myServer = new Socket("127.0.0.1", 5070);
@@ -117,7 +117,7 @@ public class ClientModel extends Observable implements Model {
 			
 
 			try {
-				getSol = (sendSolution)getSolIn.readObject(); //getting the maze
+				getSol = (SolutionSerialzable)getSolIn.readObject(); //getting the maze
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -207,7 +207,7 @@ public class ClientModel extends Observable implements Model {
 		System.out.println("Generating maze");
 		Socket myServer = null;
 		Maze m = null;
-		sendMaze mazes = new sendMaze(m);
+		MazeSerialzable mazes = new MazeSerialzable(m);
 		try {
 			myServer = new Socket("127.0.0.1", 5070);
 			BufferedReader inServer = new BufferedReader(new InputStreamReader(myServer.getInputStream()));
@@ -221,7 +221,7 @@ public class ClientModel extends Observable implements Model {
 			outToServer.flush();
 			
 			try {
-				mazes = (sendMaze)getMazeIn.readObject(); //getting the maze
+				mazes = (MazeSerialzable)getMazeIn.readObject(); //getting the maze
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -279,27 +279,3 @@ public class ClientModel extends Observable implements Model {
 }
 
 
-/**
- * {@link sendMaze} is a {@link Serializable} class to send a maze via the socket
- * 
- */
-class sendMaze implements Serializable{
-	Maze maze;
-	public sendMaze(Maze m) {
-		this.maze = m;	
-		
-	}
-	
-}
-/**
- * {@link sendSolution} is a {@link Serializable} class to send a Solution via socket
- * 
- */
-
-class sendSolution implements Serializable{
-	Solution sol;
-	public sendSolution(Solution sol) {
-		this.sol = sol;
-	}
-	
-}

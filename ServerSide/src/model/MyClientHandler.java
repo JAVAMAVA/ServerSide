@@ -29,8 +29,8 @@ public class MyClientHandler extends Observable implements ClientHandler{
 	Model m;
 	CommonSearcher cms;
 	MazeGenerator mg;
-	String mgen;
-	String soltype;
+	String mazeGeneratorType;
+	String SolutionType;
 	
 	public MyClientHandler(Model m) { //from the run
 		super();
@@ -76,14 +76,14 @@ public class MyClientHandler extends Observable implements ClientHandler{
 			else if((line[0] + " " + line[1]).equals("generate maze")){//getting a maze to the client
 				
 				Maze maze;
-				sendMaze senm ;
+				MazeSerialzable senm ;
 				
-				switch (mgen) {
+				switch (mazeGeneratorType) {
 				case "Random Generator":
 					RandomMazeGenerator rnd = new RandomMazeGenerator();
 					maze = rnd.generateMaze(Integer.parseInt(line[2]), Integer.parseInt(line[3]));
 					
-					senm = new sendMaze(maze);
+					senm = new MazeSerialzable(maze);
 					objToClient.writeObject(senm);
 					objToClient.flush();
 					break;
@@ -91,7 +91,7 @@ public class MyClientHandler extends Observable implements ClientHandler{
 					DFSMazeGenerator df = new DFSMazeGenerator();
 					maze = df.generateMaze(Integer.parseInt(line[2]), Integer.parseInt(line[3]));
 					
-					senm = new sendMaze(maze);
+					senm = new MazeSerialzable(maze);
 					objToClient.writeObject(senm);
 					objToClient.flush();
 					break;
@@ -119,9 +119,9 @@ public class MyClientHandler extends Observable implements ClientHandler{
 			else if((line[0] + " " + line[1]).equals("get solution")){//getting solution to client
 				
 				Solution sol = new Solution();
-				sendSolution sendSolution ;
+				SolutionSerialzable sendSolution ;
 				
-				switch (soltype) {
+				switch (SolutionType) {
 				case "Astar":
 					
 					
@@ -140,7 +140,7 @@ public class MyClientHandler extends Observable implements ClientHandler{
 				
 				if(m.checkSolution(line[2])){
 					sol = m.getSolution(line[3]);
-					sendSolution sendsol = new sendSolution(sol);
+					SolutionSerialzable sendsol = new SolutionSerialzable(sol);
 					ToClient.print(sendsol);
 				}
 				
@@ -175,30 +175,30 @@ public class MyClientHandler extends Observable implements ClientHandler{
 			e.printStackTrace();
 		}	
 	}
-	
-}
 
-/**
- * {@link sendMaze} is a {@link Serializable} class to send a maze via the socket
- * 
- */
-class sendMaze implements Serializable{
-	Maze maze;
-	public sendMaze(Maze m) {
-		this.maze = m;
-		
+
+	public String getMazeGeneratorType() {
+		return mazeGeneratorType;
+	}
+
+
+	public void setMazeGeneratorType(String mazeGeneratorType) {
+		this.mazeGeneratorType = mazeGeneratorType;
+	}
+
+
+	public String getSolutionType() {
+		return SolutionType;
+	}
+
+
+	public void setSolutionType(String solutionType) {
+		SolutionType = solutionType;
 	}
 	
 }
-/**
- * {@link sendSolution} is a {@link Serializable} class to send a Solution via socket
- * 
- */
 
-class sendSolution implements Serializable{
-	Solution sol;
-	public sendSolution(Solution sol) {
-		this.sol = sol;
-	}
-	
-}
+
+
+
+

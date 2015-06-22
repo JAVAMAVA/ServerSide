@@ -1,12 +1,15 @@
 package model;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
+import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 /**
@@ -55,12 +58,52 @@ public class myTCPServ implements Runnable {
 	 */
 	
 	public void start() throws Exception{
+		Scanner inUserSrver = new Scanner(System.in);
 		System.out.println("ServerStarted");
 		ServerSocket Server;
-		System.out.println("Enter for BFS - 1 \n for Astar - 2 \n ");
-		
-		
 		System.out.println("Enter for DFS - 1 \n for Random Generator - 2 \n ");
+		boolean flag=false;
+		while(flag==false)
+		{
+			int temp=inUserSrver.nextInt();
+			switch (temp) {
+			case 1:
+				myClientHandler.setMazeGeneratorType("DFS");
+				flag=true;
+				break;
+			case 2:
+				myClientHandler.setMazeGeneratorType("Random Generator");
+				flag=true;
+				break;
+				
+			default:
+				System.out.println("Wrong Input, try again:");
+				break;
+			}
+		}
+		
+		System.out.println("Enter for BFS - 1 \n for Astar - 2 \n ");
+		flag=false;
+		while(flag==false)
+		{
+			int temp=inUserSrver.nextInt();
+			switch (temp) {
+			case 1:
+				myClientHandler.setSolutionType("BFS");
+				flag=true;
+				break;
+			case 2:
+				myClientHandler.setSolutionType("Astar");
+				flag=true;
+				break;
+				
+			default:
+				System.out.println("Wrong Input, try again:");
+				break;
+			}
+		}
+		
+		
 		
 		Server = new ServerSocket(port);
 		Server.setSoTimeout(100000);
