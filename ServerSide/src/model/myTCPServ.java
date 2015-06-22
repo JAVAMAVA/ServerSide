@@ -59,7 +59,7 @@ public class myTCPServ implements Runnable {
 	
 	public void start() throws Exception{
 		Scanner inUserSrver = new Scanner(System.in);
-		System.out.println("ServerStarted");
+		System.out.println("----ServerStarted----");
 		ServerSocket Server;
 		System.out.println("Enter for DFS - 1 \n for Random Generator - 2 \n ");
 		boolean flag=false;
@@ -104,7 +104,7 @@ public class myTCPServ implements Runnable {
 		}
 		
 		
-		
+		System.out.println("----ServerWaiting----");
 		Server = new ServerSocket(port);
 		Server.setSoTimeout(100000);
 		
@@ -112,7 +112,6 @@ public class myTCPServ implements Runnable {
 		
 		while(!stopped){
 			Socket someClient = Server.accept();
-			System.out.println("ACCEPT");
 			System.out.println("Connected");
 			InputStream in = someClient.getInputStream();
 		    OutputStream out = someClient.getOutputStream();

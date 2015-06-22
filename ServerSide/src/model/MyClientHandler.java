@@ -69,9 +69,7 @@ public class MyClientHandler extends Observable implements ClientHandler{
 			
 			System.out.println(line[0] + line[1]);
 			
-			if((line[0] + " " + line[1]).equals("get maze"))//generating maze
-			{
-				
+			if((line[0] + " " + line[1]).equals("get maze")){ //generating maze
 				inFromClient.close();
 				outToClient.close();
 				sock.close();
@@ -82,8 +80,7 @@ public class MyClientHandler extends Observable implements ClientHandler{
 					ToClient.println("Maze already exists");
 					ToClient.flush();
 				}
-				else
-				{
+				else{
 					ToClient.println("Maze doesn't exists");
 					ToClient.flush();
 				}
@@ -93,22 +90,32 @@ public class MyClientHandler extends Observable implements ClientHandler{
 				
 				switch (mazeGeneratorType) {
 				case "Random Generator":
+					m.setMazeAlg("Random");
 					System.out.println("creating randon maze");
-					RandomMazeGenerator rnd = new RandomMazeGenerator();
-					System.out.println(line[3]+" "+line[4]);
-					maze = rnd.generateMaze(Integer.parseInt(line[3]), Integer.parseInt(line[4]));
+					m.generateMaze(line[2], Integer.parseInt(line[3]), Integer.parseInt(line[4]));
+					senm = new MazeSerialzable(m.getMaze());
 					
-					senm = new MazeSerialzable(maze);
+//					RandomMazeGenerator rnd = new RandomMazeGenerator();
+//					System.out.println(line[3]+" "+line[4]);
+//					maze = rnd.generateMaze(Integer.parseInt(line[3]), Integer.parseInt(line[4]));
+//					senm = new MazeSerialzable(maze);
+				
 					senm.maze.print();
 					objToClient.writeObject(senm);
 					objToClient.flush();
 					break;
 				case "DFS":
-					System.out.println("creating dfs maze");
-					DFSMazeGenerator df = new DFSMazeGenerator();
-					maze = df.generateMaze(Integer.parseInt(line[3]), Integer.parseInt(line[4]));
-					//System.out.println("size of maze: "+line[3]+" "+line[4]);
-					senm = new MazeSerialzable(maze);
+					m.setMazeAlg("DFS");
+					System.out.println("creating DFS maze");
+					m.generateMaze(line[2], Integer.parseInt(line[3]), Integer.parseInt(line[4]));
+					senm = new MazeSerialzable(m.getMaze());
+					
+//					System.out.println("creating dfs maze");
+//					DFSMazeGenerator df = new DFSMazeGenerator();
+//					maze = df.generateMaze(Integer.parseInt(line[3]), Integer.parseInt(line[4]));
+//					System.out.println("size of maze: "+line[3]+" "+line[4]);
+//					senm = new MazeSerialzable(maze);
+					
 					senm.maze.print();
 					objToClient.writeObject(senm);
 					objToClient.flush();
@@ -118,16 +125,6 @@ public class MyClientHandler extends Observable implements ClientHandler{
 				default:
 					break;
 				}
-				
-//				if(m.checkMaze(line[3])){
-//					maze = m.getMaze();
-//					sendMaze sendm = new sendMaze(maze);
-//					ToClient.println(sendm);
-//				}
-				
-				
-				//ToClient.println("Done");
-				//ToClient.flush();
 				
 				objToClient.close();
 				inFromClient.close();
@@ -145,30 +142,36 @@ public class MyClientHandler extends Observable implements ClientHandler{
 				
 				switch (SolutionType) {
 				case "Astar":
-					AStar astar=new AStar();
-					sol=new SolutionSerialzable(astar.search(md));
+					m.setSolveAlg("Astar");
+					m.solveMaze(line[2]);
+					sol = new SolutionSerialzable(m.getSolution(line[2]));
+					
+					sol.getSol().printSolution();
+					
+					objToClient.writeObject(sol);
+					objToClient.flush();
+					
+//					AStar astar=new AStar();
+//					sol=new SolutionSerialzable(astar.search(md));
 					break;
 				case "BFS" :
-					BFS bfs=new BFS();
-					sol=new SolutionSerialzable(bfs.search(md));
+					m.setSolveAlg("Bfs");
+					m.solveMaze(line[2]);
+					sol = new SolutionSerialzable(m.getSolution(line[2]));
+					
+					sol.getSol().printSolution();
+					
+					objToClient.writeObject(sol);
+					objToClient.flush();
+					
+					
+//					BFS bfs=new BFS();
+//					sol=new SolutionSerialzable(bfs.search(md));
 					break;
 
 				default:
 					break;
 				}
-				
-				
-				
-				
-				/*if(m.checkSolution(line[2])){
-					sol = m.getSolution(line[3]);
-					SolutionSerialzable sendsol = new SolutionSerialzable(sol);*/
-					//ToClient.print(sendsol);
-				
-				
-				
-				//ToClient.println("Done");
-				//ToClient.flush();
 				
 				objToClient.close();
 				inFromClient.close();

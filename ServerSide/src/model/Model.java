@@ -16,4 +16,8 @@ public interface Model {
 	void generateMaze(String name, int rows, int cols );
 	public boolean checkMaze(String name);
 	public boolean checkSolution(String string);
+	public void setMazeAlg(String mazeAlg);
+	public String getMazeAlg();
+	public void setSolveAlg(String solveAlg);
+	public String getSolveAlg();
 }

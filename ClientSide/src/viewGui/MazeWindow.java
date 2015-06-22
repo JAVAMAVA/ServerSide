@@ -143,7 +143,7 @@ public class MazeWindow extends BasicWindow implements View{
 				
 			}
 		});
-		clue.setText("Get a Clue");
+		clue.setText("Get the Solution!");
 		clue.setLayoutData(new GridData(SWT.FILL, SWT.NONE,false,false,1,1));
 		
 		

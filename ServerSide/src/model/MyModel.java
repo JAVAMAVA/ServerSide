@@ -46,10 +46,13 @@ public class MyModel extends java.util.Observable implements Model {
 	String solveAlg;
 	
 	
+	
 	public MyModel(int SizeOfThreadPool) {
 		pool = new ThreadPoolExecutor(0, SizeOfThreadPool, 0, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(4));
 		ConcurrentHashMap<Maze,Solution> mazeSolutions = new ConcurrentHashMap<Maze,Solution>();
 		ConcurrentHashMap<String,Maze> mazeNames = new ConcurrentHashMap<String, Maze>();
+		this.mazeNames = new HashMap<String, Maze>();
+		this.mazeSolutions = new HashMap<Maze, Solution>();
 	}
 	/**
 	 * generateMaze is a public method for generating a maze
@@ -71,11 +74,15 @@ public class MyModel extends java.util.Observable implements Model {
 				public Maze call() throws Exception {
 					DFSMazeGenerator dm = new DFSMazeGenerator();
 					return (dm.generateMaze(rows, cols));
+					
 				}
 			}
 			);
+			System.out.println("DFS GENERATED");
 			try {
 				maze  = m.get();
+//				maze.print();
+//				System.out.println(name);
 				mazeNames.put(name, maze);
 				currMaze = maze;
 				mazeNames.put(name, currMaze);
@@ -381,6 +388,22 @@ public class MyModel extends java.util.Observable implements Model {
 			notifyObservers("Solution was not found");
 			}
 		
+	}
+	
+	public void setMazeAlg(String mazeAlg) {
+		this.mazeAlg = mazeAlg;
+	}
+	
+	public String getMazeAlg() {
+		return mazeAlg;
+	}
+	
+	public void setSolveAlg(String solveAlg) {
+		this.solveAlg = solveAlg;
+	}
+	
+	public String getSolveAlg() {
+		return solveAlg;
 	}
 	
 	

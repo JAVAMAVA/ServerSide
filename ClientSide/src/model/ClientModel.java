@@ -60,13 +60,7 @@ public class ClientModel extends Observable implements Model {
 			BufferedReader inServer = new BufferedReader(new InputStreamReader(myServer.getInputStream()));
 			PrintWriter outToServer = new PrintWriter(new OutputStreamWriter(myServer.getOutputStream()));
 			
-			//BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
-			
-			//String line = null;
-			//line = inFromUser.readLine();
-			
-			//outToServer.println("solve maze" + line );
-			
+			System.out.println("solve maze" + " " + name);
 			outToServer.println("solve maze" + " " + name);
 			outToServer.flush();
 			
@@ -104,14 +98,7 @@ public class ClientModel extends Observable implements Model {
 			BufferedReader inServer = new BufferedReader(new InputStreamReader(myServer.getInputStream()));
 			PrintWriter outToServer = new PrintWriter(new OutputStreamWriter(myServer.getOutputStream()));
 			ObjectInputStream getSolIn = new ObjectInputStream(myServer.getInputStream());
-			
-			//BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
-			
-			//String line;
-			//line = inFromUser.readLine();
-			//outToServer.println("solve maze" + line );
-			
-			
+		
 			outToServer.println("get solution "+name);
 			outToServer.flush();
 			
