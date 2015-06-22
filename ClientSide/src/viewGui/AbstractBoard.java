@@ -85,6 +85,7 @@ public abstract class AbstractBoard extends Composite implements Board{
 				stringtemp+="L";
 			int x=Integer.parseInt(strings[1]);
 			int y=Integer.parseInt(strings[2]);
+			System.out.println(temp);
 			Image myimage=new Image(this.getDisplay(), "Images//FloorImageSolution//"+temp+".jpg");
 			boardGame[x][y].setcImage(myimage);
 			
