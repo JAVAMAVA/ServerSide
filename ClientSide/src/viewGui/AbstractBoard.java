@@ -75,13 +75,13 @@ public abstract class AbstractBoard extends Composite implements Board{
 			temps=temp.get(i);
 			strings=temps.getState().split("[(,)]");
 			stringtemp="";
-			if(matrix.getCell(character.getXCharater(), character.getYCharater()).getUp()==true)
+			if(matrix.getCell(Integer.parseInt(strings[1]),Integer.parseInt(strings[2])).getUp()==true)
 				stringtemp+="U";
-			if(matrix.getCell(character.getXCharater(), character.getYCharater()).getRight()==true)
+			if(matrix.getCell(Integer.parseInt(strings[1]),Integer.parseInt(strings[2])).getRight()==true)
 				stringtemp+="R";
-			if(matrix.getCell(character.getXCharater(), character.getYCharater()).getDown()==true)
+			if(matrix.getCell(Integer.parseInt(strings[1]),Integer.parseInt(strings[2])).getDown()==true)
 				stringtemp+="D";
-			if(matrix.getCell(character.getXCharater(), character.getYCharater()).getLeft()==true)
+			if(matrix.getCell(Integer.parseInt(strings[1]),Integer.parseInt(strings[2])).getLeft()==true)
 				stringtemp+="L";
 			int x=Integer.parseInt(strings[1]);
 			int y=Integer.parseInt(strings[2]);
@@ -90,7 +90,7 @@ public abstract class AbstractBoard extends Composite implements Board{
 			
 		}
 		this.redraw();
-		
+		this.solve=false;
 	}
 	public void AddImages()
 	{

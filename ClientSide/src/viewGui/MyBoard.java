@@ -57,7 +57,18 @@ public class MyBoard extends AbstractBoard{
 				
 				System.out.println(startgame);
 				if(startgame==true)
+				{
+					if(character.getXCharater()!=0 && character.getYCharater()!=0)
+					{
+						character.setXCharater(0);
+						character.setYCharater(0);
+						startgame=false;
+					}
+				
+				}
+				
 				character.paint(e.gc, getSize().x/matrix.getRows(), getSize().y/matrix.getCols());
+				
 				
 				setGoal((matrix.getRows()-1)+","+(matrix.getCols()-1)); //setting goal
 				
