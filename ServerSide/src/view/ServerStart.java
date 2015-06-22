@@ -1,16 +1,19 @@
 package view;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-public class ServerStart extends BasicWindow {
+public class ServerStart extends BasicWindow implements View {
 
 	public ServerStart(String title, int width, int height, Display dis) {
 		super(title, width, height, dis);
@@ -92,12 +95,36 @@ public class ServerStart extends BasicWindow {
 		mazeSol.setBackground(back);
 		mazeSol.setLayoutData(new GridData(SWT.CENTER,SWT.TOP | SWT.CENTER, true,false,2,1));
 		
-		
+		Button confirm = new Button(shell, SWT.None);
+		confirm.setText("Start Server");
+		confirm.setFont(new Font(display, "Arial", 12, SWT.NORMAL));
+		confirm.setLayoutData(new GridData(SWT.CENTER ,SWT.BOTTOM, false,true,2,1));
+		confirm.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				
+				
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		
 	}
 
 	@Override
 	void closeWindow() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void CloseMe() {
 		// TODO Auto-generated method stub
 		
 	}
