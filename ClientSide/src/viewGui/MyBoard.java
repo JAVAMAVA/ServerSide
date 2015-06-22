@@ -194,7 +194,7 @@ public class MyBoard extends AbstractBoard{
 	public void victory(){
 		
 		MP3Player victory = new MP3Player();
-		victory.addToPlayList(new File("Music//testmusic.mp3"));
+		victory.addToPlayList(new File("Music//Sound2.mp3"));
 		victory.play();
 		
 		
