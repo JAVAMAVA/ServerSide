@@ -5,6 +5,7 @@ import model.ClientModel;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Image;
 
 import java.util.HashMap;
 import java.util.Observer;
@@ -68,7 +69,7 @@ public class PropertiesWindow extends BasicWindow implements View{
 		width.setBackground(back);
 		width.setLayoutData(new GridData(SWT.CENTER,SWT.TOP | SWT.CENTER, true,false,2,1));
 		
-		Label heig=new Label(shell, SWT.CENTER | SWT.BORDER);
+		Label heig=new Label(shell, SWT.CENTER );
 		heig.setFont(font);
 		heig.setText("Enter the maze height:");
 		heig.setForeground(basicf);
@@ -95,6 +96,11 @@ public class PropertiesWindow extends BasicWindow implements View{
 		mazeName.setForeground(basicf);
 		mazeName.setBackground(back);
 		mazeName.setLayoutData(new GridData(SWT.CENTER,SWT.TOP | SWT.CENTER, true,false,2,1));
+		
+		Image pic = new Image(display, "Images//Pickacho.jpg");
+		Label img = new Label(shell, SWT.BORDER |SWT.FILL);
+		img.setLayoutData(new GridData(SWT.CENTER,SWT.TOP | SWT.CENTER, true,false,2,1));
+		img.setImage(pic);
 		
 		Button confirm = new Button(shell, SWT.None);
 		confirm.setText("Confirm");

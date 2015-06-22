@@ -1,5 +1,7 @@
 package viewGui;
 
+import jaco.mp3.player.MP3Player;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -46,6 +48,12 @@ public class StartWindow extends BasicWindow implements View  {
 		shell.getDisplay().loadFont("Fonts//YanoneKaffeesatz-Bold.ttf");
 		shell.setBackgroundMode(SWT.INHERIT_FORCE );
 		
+		MP3Player backSound = new MP3Player();
+		backSound.addToPlayList(new File("Music//sound1.mp3"));
+		backSound.play();
+		backSound.setRepeat(true);
+		
+		
 		Font font = new Font(shell.getDisplay(), "name of the font", 23, SWT.BOLD);
 		Label Title=new Label(shell, SWT.BOLD);
 		Title.setFont(font);
@@ -69,192 +77,12 @@ public class StartWindow extends BasicWindow implements View  {
 		creators.setBackground(null);
 		creators.setLayoutData(new GridData(SWT.CENTER,SWT.TOP | SWT.CENTER, true,false,2,1));
 		
-		sound = new File("Images//Anac.mp3");
+//		Button stopMusic =new Button(shell, SWT.None);
+//		stopMusic.setText("Start Playing!!");
+//		stopMusic.setFont(new Font(display, "Arial", 12, SWT.NORMAL));
+//		//okbutton.setImage(new Image(this.display,"Images//FloorImages//floorU.jpg"));
+//		stopMusic.setLayoutData(new GridData(SWT.CENTER ,SWT.BOTTOM, false,true,2,1));
 		
-		Clip backMusic = new Clip() {
-			
-			@Override
-			public void removeLineListener(LineListener listener) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void open() throws LineUnavailableException {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public boolean isOpen() {
-				// TODO Auto-generated method stub
-				return false;
-			}
-			
-			@Override
-			public boolean isControlSupported(Type control) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-			
-			@Override
-			public Info getLineInfo() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-			@Override
-			public Control[] getControls() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-			@Override
-			public Control getControl(Type control) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-			@Override
-			public void close() {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void addLineListener(LineListener listener) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void stop() {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void start() {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public boolean isRunning() {
-				// TODO Auto-generated method stub
-				return false;
-			}
-			
-			@Override
-			public boolean isActive() {
-				// TODO Auto-generated method stub
-				return false;
-			}
-			
-			@Override
-			public long getMicrosecondPosition() {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-			
-			@Override
-			public long getLongFramePosition() {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-			
-			@Override
-			public float getLevel() {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-			
-			@Override
-			public int getFramePosition() {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-			
-			@Override
-			public AudioFormat getFormat() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-			@Override
-			public int getBufferSize() {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-			
-			@Override
-			public void flush() {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void drain() {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public int available() {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-			
-			@Override
-			public void setMicrosecondPosition(long microseconds) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void setLoopPoints(int start, int end) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void setFramePosition(int frames) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void open(AudioFormat format, byte[] data, int offset, int bufferSize)
-					throws LineUnavailableException {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void open(AudioInputStream stream) throws LineUnavailableException,
-					IOException {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void loop(int count) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public long getMicrosecondLength() {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-			
-			@Override
-			public int getFrameLength() {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-		};
 		
 		Button okbutton =new Button(shell, SWT.None);
 		okbutton.setText("Start Playing!!");
