@@ -112,7 +112,7 @@ public class ClientModel extends Observable implements Model {
 			//outToServer.println("solve maze" + line );
 			
 			
-			outToServer.println("get solution");
+			outToServer.println("get solution "+name);
 			outToServer.flush();
 			
 
@@ -137,7 +137,7 @@ public class ClientModel extends Observable implements Model {
 		}
 		setChanged();
 		notifyObservers("maze solved");
-		return null;
+		return sol;
 	}
 
 	/**
@@ -203,23 +203,23 @@ public class ClientModel extends Observable implements Model {
 	 */
 	
 	@Override
-	public void generateMaze(String name, int rows, int cols) {
+	public void generateMaze(String name,int rows, int cols) {
 		System.out.println("Generating maze");
 		Socket myServer = null;
 		Maze m = null;
 		MazeSerialzable mazes = new MazeSerialzable(m);
 		try {
 			myServer = new Socket("127.0.0.1", 5070);
-			//BufferedReader inServer = new BufferedReader(new InputStreamReader(myServer.getInputStream()));
+			BufferedReader inServer = new BufferedReader(new InputStreamReader(myServer.getInputStream()));
 			PrintWriter outToServer = new PrintWriter(new OutputStreamWriter(myServer.getOutputStream()));
 			ObjectInputStream getMazeIn = new ObjectInputStream(myServer.getInputStream());
 			//BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
 			//String line;
 			//line = inFromUser.readLine();
 			
-			outToServer.println("generate maze "+rows+ " "+cols);
+			outToServer.println("generate maze "+name+" "+rows+ " "+cols);
 			outToServer.flush();
-			
+			if (inServer.readLine().equals("Maze doesn't exists")) {
 			try {
 				mazes = (MazeSerialzable)getMazeIn.readObject(); //getting the maze
 			} catch (ClassNotFoundException e) {
@@ -230,9 +230,10 @@ public class ClientModel extends Observable implements Model {
 			
 			getMazeIn.close();
 			myServer.close();
-			//inServer.close();
+			inServer.close();
 			outToServer.close();
 			//inFromUser.close();
+			}
 			
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
@@ -246,7 +247,7 @@ public class ClientModel extends Observable implements Model {
 		notifyObservers("Maze generated");
 		
 	}
-
+	
 	
 	@Override
 	public void getMazeInModel(String arg) {

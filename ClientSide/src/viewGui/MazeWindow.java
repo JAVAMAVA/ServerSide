@@ -1,33 +1,26 @@
 package viewGui;
 
 
-import java.lang.ProcessBuilder.Redirect;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observer;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseListener;
+
 import org.eclipse.swt.events.MouseMoveListener;
-import org.eclipse.swt.events.PaintEvent;
+
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.Image;
+
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Canvas;
-import org.eclipse.swt.widgets.Composite;
+
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Layout;
-import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.Text;
 
-import presenter.Presenter;
+import org.eclipse.swt.widgets.Listener;
+
 import presenter.Presenter.Command;
 import view.View;
 import algorithms.mazeGenerators.Maze;
@@ -158,11 +151,11 @@ public class MazeWindow extends BasicWindow implements View{
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				lastcommand=comm.get("solve maze ");
+				lastcommand=comm.get("solve maze");
 				setChanged();
 				notifyObservers(name);
 				gameBoard.forceFocus();
-				lastcommand=comm.get("display solution ");
+				lastcommand=comm.get("display solution");
 				setChanged();
 				notifyObservers(name);
 				
