@@ -4,11 +4,7 @@ import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
-import org.eclipse.swt.widgets.Link;
 
-import presenter.Presenter.Command;
-import algorithms.mazeGenerators.Maze;
-import algorithms.search.Solution;
 import model.Model;
 import view.View;
 /**
@@ -77,7 +73,7 @@ public class Presenter implements Observer {
 				   v.displaySuccess((String)args);
 				   break;
 			   case "Solution was found":
-			   		v.displaySolution(m.getSolution((String)args));
+			   		v.displaySolution(m.solveMaze((String)args));
 			   		break;
 			   case "Solution was not found":
 				   v.displaySuccess((String)args);
@@ -147,7 +143,7 @@ public class Presenter implements Observer {
 
 		@Override
 		public void doCommand(String arg) {
-			m.getSolutionInModel(arg);
+			m.solveMaze(arg);
 			
 		}
 		

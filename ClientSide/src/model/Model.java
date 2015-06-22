@@ -1,11 +1,10 @@
 package model;
 
 import algorithms.mazeGenerators.Maze;
-import algorithms.mazeGenerators.MazeGenerator;
 import algorithms.search.Solution;
 
 public interface Model {
-	void solveMaze(String name); 
+	Solution solveMaze(String name); 
 	Solution getSolution(String name); 
 	void stop();
 	Maze getMaze();

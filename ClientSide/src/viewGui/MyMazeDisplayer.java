@@ -21,7 +21,6 @@ public class MyMazeDisplayer extends AbstractMazeDispleyer  {
 	int style;
 	
 	
-	
 	public MyMazeDisplayer(MyBoard board,Maze myMaze) {
 		super();
 		this.m = myMaze;
@@ -29,97 +28,37 @@ public class MyMazeDisplayer extends AbstractMazeDispleyer  {
 		
 		//this.style = style;	
 	}
-	
-	
-	
 
 	/**
 	 * The method drawMaze draws the maze it gets into the board. It draws each cell as a way and around it the wall, if the wall is vertical it draws the WallVertical and if the wall is horizontal it draws a WallHorizontal
 	 * @param matrix - the {@link Maze} that need to draw in the board
 	 */
 	@Override
-	public void draw(PaintEvent e)
-	{
-			 
+	public void draw(PaintEvent e){
 			if (this.board.boardGame!=null)
-				for(int i=0;i<this.m.getRows();i++)
-				{
+				for(int i=0;i<this.m.getRows();i++){
 					for(int j=0;j<this.m.getCols();j++)
-						
 						board.boardGame[i][j].drawCell(e, (board.getSize().x/board.matrix.getCols())*j , (board.getSize().y/board.matrix.getRows())*i , (board.getSize().x/board.matrix.getCols()), (board.getSize().y/board.matrix.getRows()));
 				}
-			
-
 	}
 	
 	public void setData(Object obj){
 		this.m = (Maze)obj;
 	}
-	
-	
 
 	
-	
-//	/**
-//	 * display method displays a maze in the console
-//	 */
-//	@Override
-//	public void display23(Maze matrix,Composite parent) {
-//		
-//		
-//		
-//		
-//		
-//		
-//		for (int j = 0; j < matrix.getCols(); j++)
-//			System.out.print(" _");
-//			System.out.println("");
-//	
-//		
-//		for (int i = 0; i < matrix.getRows(); i++) {
-//			System.out.print("|");
-//			for (int j = 0; j < matrix.getCols(); j++) {				
-//				if (matrix.getCell(i, j).getDown())
-//					System.out.print("_");
-//				else
-//					System.out.print(" ");
-//				
-//				if (matrix.getCell(i, j).getRight())
-//					System.out.print("|");
-//				else
-//					System.out.print(" ");	
-//								
-//			}
-//			System.out.println();
-//		}
-//		
-//	}
-//	
 	public Maze getMyMaze(int rows,int cols){ //get maze from view
 		Maze maze;
-		
 		maze = new Maze(rows,cols);
-		
-		
 		return maze;
-		
-		
-		
+				
 	}
-
-
-
-
-	
-
 
 	@Override
 	public int getRows() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-
 
 
 	@Override

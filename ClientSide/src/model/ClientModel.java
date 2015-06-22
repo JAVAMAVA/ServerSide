@@ -10,10 +10,7 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.HashMap;
 import java.util.Observable;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ThreadPoolExecutor;
 
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.Solution;
@@ -51,33 +48,20 @@ public class ClientModel extends Observable implements Model {
 	 * @param myServer the server we connect to
 	 */
 	@Override
-	public void solveMaze(String name) {
-		System.out.println("Solving maze");
-		Socket myServer = null;
-		try {
-			//myServer = new Socket(HOST, PORT);
-			myServer = new Socket("127.0.0.1", 5070);
-			BufferedReader inServer = new BufferedReader(new InputStreamReader(myServer.getInputStream()));
-			PrintWriter outToServer = new PrintWriter(new OutputStreamWriter(myServer.getOutputStream()));
-			
-			System.out.println("solve maze" + " " + name);
-			outToServer.println("solve maze" + " " + name);
-			outToServer.flush();
-			
-			myServer.close();
-			inServer.close();
-			outToServer.close();
-			//inFromUser.close();
-			
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		setChanged();
-		notifyObservers("maze solved");
+	public Solution solveMaze(String name) {
+		System.out.println("Returning last maze solution");
+		currMaze.print();
+		currSol.printSolution();
+		if(currSol != null)
+			return currSol;
+		return null;
+		
+		
+		
+		
+		
+		
+
 	}
 	
 	/**
@@ -101,7 +85,6 @@ public class ClientModel extends Observable implements Model {
 		
 			outToServer.println("get solution "+name);
 			outToServer.flush();
-			
 
 			try {
 				getSol = (SolutionSerialzable)getSolIn.readObject(); //getting the Solution
@@ -111,11 +94,10 @@ public class ClientModel extends Observable implements Model {
 			}
 			
 			getSol.sol.printSolution();
-			
+			System.out.println("Solution got");
 			myServer.close();
 			inServer.close();
 			outToServer.close();
-			//inFromUser.close();
 			
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
@@ -124,63 +106,11 @@ public class ClientModel extends Observable implements Model {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		sol = getSol.getSol();
+		this.currSol = sol;
 		setChanged();
-		notifyObservers("maze solved");
+		notifyObservers("Solution was found");
 		return sol;
-	}
-
-	/**
-	 * getMaze gets a maze to the client
-	 */
-
-	@Override
-	public Maze getMaze() {
-
-		return currMaze;
-		
-		
-//		System.out.println("Getting maze");
-//		Socket myServer = null;
-//		Maze m = null;
-//		sendMaze mazes = new sendMaze(m);
-//		try {
-//			myServer = new Socket("127.0.0.1", 5070);
-//			BufferedReader inServer = new BufferedReader(new InputStreamReader(myServer.getInputStream()));
-//			PrintWriter outToServer = new PrintWriter(new OutputStreamWriter(myServer.getOutputStream()));
-//			ObjectInputStream getMazeIn = new ObjectInputStream(myServer.getInputStream());
-//			
-//			//BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
-//			
-//			//String line;
-//			//line = inFromUser.readLine();
-//			
-//			outToServer.println("get maze");
-//			outToServer.flush();
-//			
-//			try {
-//				mazes = (sendMaze)getMazeIn.readObject(); //getting the maze
-//			} catch (ClassNotFoundException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			mazes.maze.print();
-//			
-//			getMazeIn.close();
-//			myServer.close();
-//			inServer.close();
-//			outToServer.close();
-//			//inFromUser.close();
-//			
-//		} catch (UnknownHostException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		setChanged();
-//		notifyObservers(arg);
-//		return m;
 	}
 	
 	/**
@@ -267,6 +197,15 @@ public class ClientModel extends Observable implements Model {
 	public void stop() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	/**
+	 * getMaze gets a maze to the client
+	 */
+
+	@Override
+	public Maze getMaze() {
+		return currMaze;
 	}
 }
 

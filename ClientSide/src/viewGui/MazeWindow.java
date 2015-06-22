@@ -244,7 +244,7 @@ public class MazeWindow extends BasicWindow implements View{
 		int x=gameBoard.character.x;
 		int y=gameBoard.character.y;
 		State temp;
-		
+		s.printSolution();
 		gameBoard.sol=s;
 		gameBoard.solve=true;
 		gameBoard.redraw();
