@@ -1,5 +1,16 @@
 package viewGui;
 
+import jaco.mp3.player.MP3Player;
+
+import java.io.File;
+import java.io.IOException;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
@@ -21,10 +32,16 @@ import algorithms.mazeGenerators.Maze;
 
 
 public class MyBoard extends AbstractBoard{
-	
-	
-
 	public boolean startgame;
+	public String goal;
+	
+	public void setGoal(String goal) {
+		this.goal = goal;
+	}
+	
+	public String getGoal() {
+		return goal;
+	}
 	
 	public MyBoard(Composite parent, int style,Display display,Shell shell,Maze m) {
 		super(parent, style | SWT.DOUBLE_BUFFERED,m);
@@ -41,12 +58,14 @@ public class MyBoard extends AbstractBoard{
 				System.out.println(startgame);
 				if(startgame==true)
 				character.paint(e.gc, getSize().x/matrix.getRows(), getSize().y/matrix.getCols());
-			
+				
+				setGoal((matrix.getRows()-1)+","+(matrix.getCols()-1)); //setting goal
 				
 			}
 	
 		});
 		addKeyListener(new KeyListener() { //listening to the client key arrows
+			
 			
 			
 			@Override
@@ -61,13 +80,12 @@ public class MyBoard extends AbstractBoard{
 						
 						boardGame[character.getXCharater()][character.getYCharater()].redraw();
 						character.setXCharater(character.getXCharater()-1);
-						
-						
-					
+						String[] temp = getGoal().split(",");
 						redraw();
-						if (character.getXCharater()==matrix.getRows()-1 && character.getYCharater()==matrix.getCols()-1)
+						if (character.getXCharater()== Integer.parseInt(temp[0]) && character.getYCharater()==Integer.parseInt(temp[0]))
 						{
 							System.out.println("THE END");
+							victory();
 						}
 					 
 					 }
@@ -76,17 +94,15 @@ public class MyBoard extends AbstractBoard{
 					 character.chImage=new Image(getDisplay(), "ImagesCharacters//BlueBoy//BHSF.png");
 					 redraw();
 					 if (matrix.getCell(character.getXCharater(),character.getYCharater()).getDown()==false)
-					 {
-						 
+					 {	 
 					
 						 character.setXCharater(character.getXCharater()+1);
-						
-						
-						 
+						 String[] temp = getGoal().split(",");
 						 redraw();
-						 if (character.getXCharater()==matrix.getRows()-1 && character.getYCharater()==matrix.getCols()-1)
+						 if (character.getXCharater()== Integer.parseInt(temp[0]) && character.getYCharater()==Integer.parseInt(temp[0]))
 							{
 								System.out.println("THE END");
+								victory();
 							}
 					 }
 				 }
@@ -97,13 +113,12 @@ public class MyBoard extends AbstractBoard{
 					 {
 						
 						character.setYCharater(character.getYCharater()-1);
-						 
-						
-						 
+						String[] temp = getGoal().split(",");
 						 redraw();
-						 if (character.getXCharater()==matrix.getRows()-1 && character.getYCharater()==matrix.getCols()-1)
+						 if (character.getXCharater()== Integer.parseInt(temp[0]) && character.getYCharater()==Integer.parseInt(temp[0]))
 							{
 								System.out.println("THE END");
+								victory();
 							}
 					 }
 				 }
@@ -113,10 +128,12 @@ public class MyBoard extends AbstractBoard{
 					 if (matrix.getCell(character.getXCharater(),character.getYCharater()).getRight()==false)
 					 {
 						 character.setYCharater(character.getYCharater()+1);
+						 String[] temp = getGoal().split(",");
 						 redraw();
-						 if (character.getXCharater()==matrix.getRows()-1 && character.getYCharater()==matrix.getCols()-1)
+						 if (character.getXCharater()== Integer.parseInt(temp[0]) && character.getYCharater()==Integer.parseInt(temp[0]))
 							{
 								System.out.println("THE END");
+								victory();
 							}
 					 }
 				 }
@@ -150,9 +167,7 @@ public class MyBoard extends AbstractBoard{
 			
 			@Override
 			public void mouseDown(MouseEvent arg0) {
-				
-				
-				
+						
 			}
 			
 			@Override
@@ -162,21 +177,6 @@ public class MyBoard extends AbstractBoard{
 			}
 		});
 		
-		
-	
-		
-
-
-		
-	
-		
-
-		
-	 
-	
-	
-	
-	
 
 	}
 
@@ -186,6 +186,47 @@ public class MyBoard extends AbstractBoard{
 		
 		redraw();
 		
+	}
+	
+	/**
+	 * victory plays a sound whenever the player hit the goal
+	 */
+	public void victory(){
+		
+		MP3Player victory = new MP3Player();
+		victory.addToPlayList(new File("Music//testmusic.mp3"));
+		victory.play();
+		
+		
+		
+		
+//		Clip victorysound;
+//		File music = new File("Images//Anac.wav");
+//		try {
+//			if(music.exists()){
+//				AudioInputStream sound;
+//				sound = AudioSystem.getAudioInputStream(music);
+//				try {
+//					victorysound = AudioSystem.getClip();
+//					victorysound.open(sound);
+//				} catch (LineUnavailableException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				
+//			}
+//			else{
+//				System.out.println("File Not Found");
+//			}
+//			
+//		} catch (UnsupportedAudioFileException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}		
+			
 	}
 	
 	

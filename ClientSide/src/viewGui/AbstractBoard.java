@@ -148,6 +148,13 @@ public abstract class AbstractBoard extends Composite implements Board{
 					boardGame[i][j].setLayoutData(new GridData(SWT.FILL,SWT.FILL,true,true));
 					boardGame[i][j].drawCell(e, (getSize().x/matrix.getCols())*j , (getSize().y/matrix.getRows())*i , (getSize().x/matrix.getCols()), (getSize().y/matrix.getRows()));
 					temp="";
+					
+					if((i == (matrix.getRows() -1)) && (j == (matrix.getCols() -1))){
+						boardGame[i][j].setcImage(new Image(this.getDisplay(), "Images//FloorImages//EndPoint.jpg"));
+						boardGame[i][j].setLayoutData(new GridData(SWT.FILL,SWT.FILL,true,true));
+						boardGame[i][j].drawCell(e, (getSize().x/matrix.getCols())*j , (getSize().y/matrix.getRows())*i , (getSize().x/matrix.getCols()), (getSize().y/matrix.getRows()));
+						temp="";
+					}
 				
 				}
 			}
