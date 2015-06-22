@@ -3,11 +3,9 @@ package viewGui;
 import jaco.mp3.player.MP3Player;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Observer;
 
-import javax.swing.ButtonModel;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -20,11 +18,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
-
-import javax.sound.sampled.*;
-import javax.sound.sampled.Control.Type;
-import javax.sound.sampled.Line.Info;
 
 import presenter.Presenter.Command;
 import algorithms.mazeGenerators.Maze;

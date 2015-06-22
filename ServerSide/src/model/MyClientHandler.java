@@ -8,20 +8,13 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.io.Serializable;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Observable;
 
-import algorithms.demo.MazeDomain;
-import algorithms.mazeGenerators.DFSMazeGenerator;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MazeGenerator;
-import algorithms.mazeGenerators.RandomMazeGenerator;
-import algorithms.search.AStar;
-import algorithms.search.BFS;
 import algorithms.search.CommonSearcher;
-import algorithms.search.Solution;
 /**
  * {@link MyClientHandler} handles the traffic from the client
  * @author Michael&Amit

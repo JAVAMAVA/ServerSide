@@ -44,8 +44,8 @@ public class PropertiesWindow extends BasicWindow implements View{
 		shell.getDisplay().loadFont("Fonts//YanoneKaffeesatz-Bold.ttf");
 		
 		
-		Color basicf = new Color(this.display.getCurrent(), 0, 0, 160);
-		Color back = new Color(this.display.getCurrent(), 255,255, 255);
+		Color basicf = new Color(display.getCurrent(), 0, 0, 160);
+		Color back = new Color(display.getCurrent(), 255,255, 255);
 		Font font = new Font(this.display, "name of the font", 15, SWT.BOLD);
 		
 		Label prop=new Label(shell, SWT.CENTER);
