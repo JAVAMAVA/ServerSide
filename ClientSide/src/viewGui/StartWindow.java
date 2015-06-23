@@ -3,12 +3,8 @@ package viewGui;
 import jaco.mp3.player.MP3Player;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Observer;
-
-import javax.swing.ButtonModel;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -20,17 +16,16 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
-
-import javax.sound.sampled.*;
-import javax.sound.sampled.Control.Type;
-import javax.sound.sampled.Line.Info;
-
 import presenter.Presenter.Command;
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.Solution;
 import view.View;
-
+/**
+ * StartWindow is the main starting window for the Gui
+ * it implements {@link View} and extends {@link BasicWindow}
+ * @author Michael&Amit
+ *
+ */
 public class StartWindow extends BasicWindow implements View  {
 
 	PropertiesWindow prop;
@@ -43,7 +38,6 @@ public class StartWindow extends BasicWindow implements View  {
 
 	@Override
 	void initWidgets() {
-//		shell.setBackground(new Color(display.getCurrent(), 255,255, 255));
 		shell.setLayout(new GridLayout(2,false));
 		shell.getDisplay().loadFont("Fonts//YanoneKaffeesatz-Bold.ttf");
 		shell.setBackgroundMode(SWT.INHERIT_FORCE );
@@ -60,7 +54,6 @@ public class StartWindow extends BasicWindow implements View  {
 		Title.setFont(font);
 		Title.setText("Welcome To Our Maze Game");
 		Title.setForeground(new Color(display.getCurrent(), 200, 40, 160));
-//		Title.setBackground(new Color(display.getCurrent(), 255,255, 255));
 		Title.setBackground(null);
 		Title.setLayoutData(new GridData(SWT.CENTER,SWT.TOP, true,false,2,1));
 		

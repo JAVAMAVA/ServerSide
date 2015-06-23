@@ -25,7 +25,7 @@ import presenter.Presenter.Command;
 import view.View;
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.Solution;
-import algorithms.search.State;
+
 
 
 public class MazeWindow extends BasicWindow implements View{
@@ -241,9 +241,9 @@ public class MazeWindow extends BasicWindow implements View{
 
 	@Override
 	public void displaySolution(Solution s) {
-		int x=gameBoard.character.x;
-		int y=gameBoard.character.y;
-		State temp;
+//		int x=gameBoard.character.x;
+//		int y=gameBoard.character.y;
+//		State temp;
 		s.printSolution();
 		gameBoard.sol=s;
 		gameBoard.solve=true;

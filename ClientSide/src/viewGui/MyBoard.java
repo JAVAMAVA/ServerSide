@@ -12,18 +12,17 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
-import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
-
-import algorithms.mazeGenerators.Cell;
 import algorithms.mazeGenerators.Maze;
-
-
+/**
+ * MyBoard extends {@link AbstractBoard}
+ * it is the main gameboard in the window
+ * @author Michael&Amit
+ *
+ */
 
 public class MyBoard extends AbstractBoard{
 	public boolean startgame;
