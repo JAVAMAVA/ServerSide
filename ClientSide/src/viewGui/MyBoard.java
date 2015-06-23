@@ -3,13 +3,7 @@ package viewGui;
 import jaco.mp3.player.MP3Player;
 
 import java.io.File;
-import java.io.IOException;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
@@ -34,6 +28,7 @@ import algorithms.mazeGenerators.Maze;
 public class MyBoard extends AbstractBoard{
 	public boolean startgame;
 	public String goal;
+	
 	
 	public void setGoal(String goal) {
 		this.goal = goal;
@@ -204,6 +199,8 @@ public class MyBoard extends AbstractBoard{
 	 */
 	public void victory(){
 		
+		this.victory=true;
+		this.redraw();
 		MP3Player victory = new MP3Player();
 		victory.addToPlayList(new File("Music//Sound2.mp3"));
 		victory.play();

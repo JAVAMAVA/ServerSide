@@ -34,7 +34,7 @@ import view.View;
 public class StartWindow extends BasicWindow implements View  {
 
 	PropertiesWindow prop;
-	File sound;
+	MP3Player sound;
 	
 	public StartWindow(String title, int width, int height,Display dis) {
 		super(title, width, height ,dis);
@@ -48,10 +48,11 @@ public class StartWindow extends BasicWindow implements View  {
 		shell.getDisplay().loadFont("Fonts//YanoneKaffeesatz-Bold.ttf");
 		shell.setBackgroundMode(SWT.INHERIT_FORCE );
 		
-		MP3Player backSound = new MP3Player();
-		backSound.addToPlayList(new File("Music//sound1.mp3"));
-		backSound.play();
-		backSound.setRepeat(true);
+		sound = new MP3Player();
+		sound.addToPlayList(new File("Music//sound1.mp3"));
+		sound.play();
+		sound.setRepeat(true);
+		
 		
 		
 		Font font = new Font(shell.getDisplay(), "name of the font", 23, SWT.BOLD);
@@ -93,10 +94,11 @@ public class StartWindow extends BasicWindow implements View  {
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				
+				sound.stop();
 				prop = new PropertiesWindow("Proparties", 500, 500, display);
 				prop.start();
 				prop.run();
+				closeWindow();
 				
 				//MazeWindow mW=new MazeWindow("My Maze Window",500, 500);
 				//mW.start();
@@ -180,7 +182,8 @@ public class StartWindow extends BasicWindow implements View  {
 
 	@Override
 	void closeWindow() {
-		// TODO Auto-generated method stub
+	
+		
 		
 	}
 

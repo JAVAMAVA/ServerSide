@@ -57,18 +57,18 @@ public class PropertiesWindow extends BasicWindow implements View{
 		
 		Label wid=new Label(shell, SWT.CENTER);
 		wid.setFont(font);
-		wid.setText("Enter the maze width:");
+		wid.setText("Enter the maze width and height:");
 		wid.setForeground(basicf);
 		wid.setBackground(back);
 		wid.setLayoutData(new GridData(SWT.CENTER,SWT.TOP | SWT.CENTER, true,false,2,1));
 		
 		
-		Text width = new Text(shell, SWT.CENTER);
-		width.setFont(font);
-		width.setForeground(basicf);
-		width.setBackground(back);
-		width.setLayoutData(new GridData(SWT.CENTER,SWT.TOP | SWT.CENTER, true,false,2,1));
-		
+		Text widthandHeight = new Text(shell, SWT.CENTER);
+		widthandHeight.setFont(font);
+		widthandHeight.setForeground(basicf);
+		widthandHeight.setBackground(back);
+		widthandHeight.setLayoutData(new GridData(SWT.CENTER,SWT.TOP | SWT.CENTER, true,false,2,1));
+		/*
 		Label heig=new Label(shell, SWT.CENTER );
 		heig.setFont(font);
 		heig.setText("Enter the maze height:");
@@ -82,7 +82,7 @@ public class PropertiesWindow extends BasicWindow implements View{
 		height.setForeground(basicf);
 		height.setBackground(back);
 		height.setLayoutData(new GridData(SWT.CENTER,SWT.TOP | SWT.CENTER, true,false,2,1));
-		
+		*/
 		Label name=new Label(shell, SWT.CENTER);
 		name.setFont(font);
 		name.setText("Enter the maze name:");
@@ -110,11 +110,12 @@ public class PropertiesWindow extends BasicWindow implements View{
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				System.out.println(width.getText());
-				System.out.println(height.getText());
-				if(width.getText()!= "" && width.getText()!= "0" && height.getText() != "" && height.getText() != "0"){
+				System.out.println(widthandHeight.getText());
+				//System.out.println(height.getText());
+				if(widthandHeight.getText()!= "" && widthandHeight.getText()!= "0"){
 					
-					mW=new MazeWindow("My Maze Window",500, 500,display,Integer.parseInt(width.getText()),Integer.parseInt(height.getText()),mazeName.getText());
+					mW=new MazeWindow("My Maze Window",500, 500,display,Integer.parseInt(widthandHeight.getText()),Integer.parseInt(widthandHeight.getText()),mazeName.getText());
+					
 					ClientModel c=new ClientModel();
 					Presenter p=new Presenter(mW, c);
 					mW.addObserver(p);

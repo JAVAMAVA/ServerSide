@@ -24,7 +24,8 @@ public abstract class AbstractBoard extends Composite implements Board{
 	Maze matrix;
 	AbstractMazeDispleyer myMaze;
 	boolean newmaze=false;
-	Boolean solve=false;
+	boolean solve=false;
+	boolean victory=false;
 	Solution sol;
 	
 	public AbstractBoard(Composite parent, int style,Maze m) {
@@ -39,8 +40,10 @@ public abstract class AbstractBoard extends Composite implements Board{
 			public void paintControl(PaintEvent e) {
 					if(solve==true)
 						drawSolution(e);
-					if (boardGame==null || newmaze==true)
+					if (boardGame==null || newmaze==true )
 						drawMaze(e);
+					else if(victory==true)
+						drawVictory(e);
 					else myMaze.draw(e);
 			}
 		});
@@ -65,6 +68,20 @@ public abstract class AbstractBoard extends Composite implements Board{
 		boardGame[character.getXCharater()][character.getYCharater()].redraw();
 		
 	}*/
+	protected void drawVictory(PaintEvent e) {
+		for(int i=0;i<this.matrix.getRows();i++)
+		{
+			for(int j=0;j<this.matrix.getCols();j++)
+			{
+				boardGame[i][j].setcImage(new Image(this.getDisplay(), "Images//winner.jpg"));
+				boardGame[i][j].drawCell(e, (getSize().x/matrix.getCols())*j , (getSize().y/matrix.getRows())*i , (getSize().x/matrix.getCols()), (getSize().y/matrix.getRows()));
+			}
+		}
+
+		this.redraw();
+		this.victory=false;
+		
+	}
 	protected void drawSolution(PaintEvent e) {
 		ArrayList<State> temp=this.sol.getSolution();
 		String[] strings;

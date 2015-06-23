@@ -94,6 +94,35 @@ public class MyClientHandler extends Observable implements ClientHandler{
 					m.setMazeAlg("Random");
 					System.out.println("Creating randon maze");
 					m.generateMaze(line[2], Integer.parseInt(line[3]), Integer.parseInt(line[4]));
+					
+					for(int i=0;i<m.getMaze().getRows();i++)
+					{
+						for(int j=0;j<m.getMaze().getCols();j++)
+						{
+							if(i>0)
+							{
+								if(m.getMaze().getCell(i, j).getUp()==false)
+								{
+									m.getMaze().getCell(i-1, j).setDown(false);
+								}
+								if(j>0)
+								{
+									if(m.getMaze().getCell(i, j).getLeft()==false)
+										m.getMaze().getCell(i, j-1).setRight(false);
+								}
+							}
+							if(i<m.getMaze().getRows()-1)
+							{
+								if(m.getMaze().getCell(i, j).getDown()==false)
+									m.getMaze().getCell(i+1, j).setUp(false);
+							}
+							if(j<m.getMaze().getCols()-1)
+							{
+								if(m.getMaze().getCell(i, j).getRight()==false)
+									m.getMaze().getCell(i, j+1).setLeft(false);
+							}
+						}
+					}
 					senm = new MazeSerialzable(m.getMaze());
 					
 //					RandomMazeGenerator rnd = new RandomMazeGenerator();
